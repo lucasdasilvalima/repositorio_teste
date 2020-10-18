@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="680.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.RegisterController">
+   <bottom>
+      <ButtonBar prefHeight="55.0" prefWidth="614.0" style="-fx-background-color: #3E3E40;" BorderPane.alignment="CENTER">
+        <buttons>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToLogin" prefHeight="34.0" prefWidth="83.0" style="-fx-min-height: 35;" text="Voltar" />
+            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" prefHeight="34.0" prefWidth="133.0" style="-fx-min-height: 35; -fx-background-color: #1685f8; -fx-text-fill: #fff; -fx-border-color: #1685f8;" text="Cadastrar" />
+        </buttons>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </ButtonBar>
+   </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="290.0" text="WhatsUT">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <Pane prefHeight="200.0" prefWidth="200.0" />
+            <Label text="User">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="nameField" style="-fx-min-height: 35;">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TextField>
+            <Label fx:id="invalidUsernameLabel" style="-fx-text-fill: #f33;" text="Nome de usuário inválido ou nao disponivel" visible="false">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label text="Email" />
+            <TextField fx:id="emailField" style="-fx-min-height: 35;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TextField>
+            <Label fx:id="invalidEmailLabel" style="-fx-text-fill: #f33;" text="Email inválido" visible="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Password">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <PasswordField fx:id="passField" onAction="#register" style="-fx-min-height: 35;">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </PasswordField>
+            <Label fx:id="invalidPasswordLabel" style="-fx-text-fill: #f33;" text="A senha deve ter pelo menos 6 caracteres" visible="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Pane prefHeight="18.0" prefWidth="91.0" />
+               </children>
+            </HBox>
+            <Pane prefHeight="229.0" prefWidth="280.0" />
+         </children></VBox>
+   </center>
+   <left>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+   <top>
+      <HBox prefHeight="53.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="42.0" prefWidth="280.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
