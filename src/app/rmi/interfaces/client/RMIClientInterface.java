@@ -12,6 +12,8 @@ public interface RMIClientInterface extends Remote {
 
     public void notifyNewUserIsOn(RMIClientInterface user) throws RemoteException;
 
+    public void notifyUserIsOut(RMIClientInterface user) throws RemoteException;
+
     public void notifyNewGroup(ChatGroup group) throws RemoteException;
 
     public User getUser() throws RemoteException;
@@ -20,7 +22,7 @@ public interface RMIClientInterface extends Remote {
 
     public void receiveFileAsMessageFromUser(FileAsMessage fileAsMessage) throws RemoteException;
 
-    public void reciveMessageFromGroup(Message message, ChatGroup source) throws RemoteException;
+    public void receiveMessageFromGroup(Message message, ChatGroup source) throws RemoteException;
 
-    public void reciveFileAsMessageFromGroup(FileAsMessage fileAsMessage, ChatGroup user) throws RemoteException;
+    public void receiveFileAsMessageFromGroup(FileAsMessage fileAsMessage, ChatGroup user) throws RemoteException;
 }

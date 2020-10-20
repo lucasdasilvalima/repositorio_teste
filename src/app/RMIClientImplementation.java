@@ -8,6 +8,7 @@ import app.model.Message;
 import app.model.User;
 import app.rmi.interfaces.IUser;
 import app.rmi.interfaces.client.RMIClientInterface;
+import javafx.scene.Group;
 import javafx.scene.control.ListView;
 import javafx.scene.text.TextFlow;
 
@@ -18,10 +19,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 import java.util.Vector;
-
-
 
 public class RMIClientImplementation extends UnicastRemoteObject implements RMIClientInterface, Serializable {
 
@@ -29,55 +30,72 @@ public class RMIClientImplementation extends UnicastRemoteObject implements RMIC
     private User user;
     public Vector<User> myContacts;
     public ListView<ChatGroup> groupList;
-    public javafx.scene.control.ListView<User> userList;
-    public TextFlow messagesArea ;
+    public ListView<User> userList;
+    public TextFlow messagesArea;
+    public Map<User, ArrayList<Message>> usersHistory;
+    public Map<Group, ArrayList<ChatGroup>> groupsHistory;
 
-    public RMIClientImplementation(IUser user, ListView<ChatGroup> groupList,
-            javafx.scene.control.ListView<User> userList, TextFlow messagesArea) throws RemoteException {
+    public RMIClientImplementation(IUser user, ListView<ChatGroup> groupList, ListView<User> userList,
+            TextFlow messagesArea, Map<User, ArrayList<Message>> usersHistory,
+            Map<Group, ArrayList<ChatGroup>> groupsHistory) throws RemoteException {
         super();
+        System.out.println("[DEBUG] getInstance");
         this.groupList = groupList;
         this.userList = userList;
         this.user = (User) user;
         this.myContacts = new Vector<>();
         this.messagesArea = messagesArea;
+        this.usersHistory = usersHistory;
+        this.groupsHistory = groupsHistory;
     }
-
-
 
     @Override
     public User getUser() throws RemoteException {
+        // System.out.println("[DEBUG] getUser");
         return this.user;
     }
 
     @Override
     public void receiveMessageFromUser(Message message) throws RemoteException {
-        User source = message.getUser();
-        TextFormatWrapper t1 = MessageFormatter.format(user.getName(), "28/28/28", message.toString());
-        System.err.println(source.getEmail() + " - [Diz]: " + message.toString());
-        addMessageToFlow(t1);
+        System.out.println("->" + message);
+
+        if (this.usersHistory.containsKey(message.getFrom())) {
+            System.out.println("[DEBUG] adicionando usuário no history: " + message.getFrom() + " -> " + message);
+            this.usersHistory.get(message.getFrom()).add(message);
+        } else {
+            System.out.println("[DEBUG] adicionando mensagem no history -> " + message);
+            ArrayList<Message> messages = new ArrayList<>();
+            messages.add(message);
+            this.usersHistory.put(message.getFrom(), messages);
+        }
+
+        // User source = message.getUser();
+        // TextFormatWrapper t1 = MessageFormatter.format(user.getName(), "28/28/28",
+        // message.toString());
+        // System.err.println(source.getEmail() + " - [Diz]: " + message.toString());
+        // addMessageToFlow(t1);
 
     }
 
-
-
-    public void addMessageToFlow(TextFormatWrapper text){
+    public void addMessageToFlow(TextFormatWrapper text) {
         messagesArea.getChildren().add(text.from);
         messagesArea.getChildren().add(text.date);
         messagesArea.getChildren().add(text.text);
-//        scrollPane.setVvalue(1.0);
+        // scrollPane.setVvalue(1.0);
     }
 
     @Override
     public void receiveFileAsMessageFromUser(FileAsMessage fileAsMessage) throws RemoteException {
+        System.out.println("[DEBUG] receiveFileAsMessageFromUser");
         String clientpath = "/tmp/client/";
         try {
-            saveFileRecived(fileAsMessage, clientpath);
+            saveFileReceived(fileAsMessage, clientpath);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveFileRecived(FileAsMessage fileAsMessage, String path) throws IOException {
+    public void saveFileReceived(FileAsMessage fileAsMessage, String path) throws IOException {
 
         File clientpathfile = fileAsMessage.content;
 
@@ -90,16 +108,16 @@ public class RMIClientImplementation extends UnicastRemoteObject implements RMIC
     }
 
     @Override
-    public void reciveMessageFromGroup(Message message, ChatGroup source) throws RemoteException {
+    public void receiveMessageFromGroup(Message message, ChatGroup source) throws RemoteException {
         System.out.println(source.getName() + " - [Diz]: " + message.toString());
 
     }
 
     @Override
-    public void reciveFileAsMessageFromGroup(FileAsMessage fileAsMessage, ChatGroup user) throws RemoteException {
+    public void receiveFileAsMessageFromGroup(FileAsMessage fileAsMessage, ChatGroup user) throws RemoteException {
         String clientpath = "/tmp/client/";
         try {
-            saveFileRecived(fileAsMessage, clientpath);
+            saveFileReceived(fileAsMessage, clientpath);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,10 +147,23 @@ public class RMIClientImplementation extends UnicastRemoteObject implements RMIC
     }
 
     @Override
+    public void notifyUserIsOut(RMIClientInterface user) throws RemoteException {
+        if (myContacts.contains(user)) {
+            this.myContacts.remove(user.getUser());
+            userList.getItems().remove(user.getUser());
+        }
+    }
+
+    @Override
     public boolean equals(Object obj) {
-        User otherUser = (User) obj;
+        RMIClientImplementation rmiClientImplementation = (RMIClientImplementation) obj;
         // COnfia no lucas rafael ;)
-        return this.user.equals(otherUser);
+        try {
+            return this.user.equals(rmiClientImplementation.getUser());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

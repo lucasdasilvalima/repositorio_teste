@@ -5,7 +5,14 @@ import java.io.Serializable;
 
 public class FileAsMessage implements Serializable {
 
-    public FileAsMessage(File content, byte[] data) {
+    /**
+     *
+     * @param from QUem esta enviando o arquivo
+     * @param to quem vai recebber o arquivo
+     * @param content medadados do arquivo
+     * @param data arquivo em formato de byte para ser transferido
+     */
+    public FileAsMessage(User from, User to, File content, byte[] data) {
         this.content = content;
         this.data = data;
         this.lenght = (int) content.length();
@@ -22,6 +29,7 @@ public class FileAsMessage implements Serializable {
 
     public File content;
     public User from;
+    public User to;
     public byte[] data;
     public int lenght;
 }

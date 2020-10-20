@@ -43,9 +43,9 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #1A1A1A;" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" prefHeight="369.0" prefWidth="501.0" style="-fx-background-color: #1A1A1A;" VBox.vgrow="ALWAYS">
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" prefHeight="194.0" prefWidth="618.0" style="-fx-background-color: #1A1A1A;" VBox.vgrow="ALWAYS">
                <content>
-                  <TextFlow fx:id="messagesArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="308.0" prefWidth="563.0" style="-fx-background-color: #1A1A1A;">
+                  <TextFlow fx:id="messagesArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="7.0" prefWidth="613.0" style="-fx-background-color: #1A1A1A;">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>

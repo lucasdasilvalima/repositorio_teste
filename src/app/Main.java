@@ -8,6 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
 public class Main extends Application {
 
     public static int MIN_WIDTH = 680;
@@ -41,7 +45,17 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-
         launch(args);
+        try {
+            RMIClient.getInstance().logOutUser();
+        } catch (NullPointerException e){
+          System.err.println("NAO LOGADO, NAO PODE SAIR");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 }

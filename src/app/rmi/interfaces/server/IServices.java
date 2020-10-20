@@ -12,7 +12,9 @@ public interface IServices extends Remote {
 
 	public boolean addNewUser(RMIClientInterface client) throws RemoteException;
 
-	public void sendMessageToUser(User to, Message menssage) throws RemoteException;
+	public boolean removeUserFromApp(RMIClientInterface client) throws RemoteException;
+
+	public void sendMessageToUser(User to, Message message) throws RemoteException;
 
 	public void sendFileToUser(User to, FileAsMessage fileAsMessage) throws RemoteException;
 
@@ -20,7 +22,7 @@ public interface IServices extends Remote {
 
 	public void removeUserFromGroup(User user, ChatGroup group) throws RemoteException;
 
-	public void sendMessageToGroup(ChatGroup to, Message menssage) throws RemoteException;
+	public void sendMessageToGroup(ChatGroup to, Message message) throws RemoteException;
 
 	public void sendFileToGroup(ChatGroup to, FileAsMessage fileAsMessage) throws RemoteException;
 

@@ -30,9 +30,9 @@ public class ConnectionFactory {
 //                DAOProperties.getDBDAOUserName(),
 //                DAOProperties.getDBDAOPassword());
 
-        String url = "jdbc:postgresql://motty.db.elephantsql.com:5432/zjumrqah";
-        String username = "zjumrqah";
-        String password = "3_Svph3vx7kr4WpSnmyCdaatZtZXORmp";
+        String url = "jdbc:postgresql://motty.db.elephantsql.com:5432/" + System.getenv("DB_USER");
+        String username = System.getenv("DB_USER");
+        String password = System.getenv("DB_PASSWD");
         return DriverManager.getConnection(url, username, password);
     }
 
